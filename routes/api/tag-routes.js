@@ -37,13 +37,12 @@ router.get("/:id", (req, res) => {
       },
     ],
   }).then((dbTagData) => {
-    if (!dbTagData) {
+    if (dbTagData) {
       res.json(dbTagData);
     } else {
       res.status(404).json({ message: "No tag found with this id" });
       return;
     }
-    res.json(dbTagData);
   });
 });
 
@@ -68,14 +67,12 @@ router.put("/:id", (req, res) => {
       },
     }
   ).then((dbTagData) => {
-    res.json(dbTagData);
-    if (!dbTagData) {
+    if (dbTagData) {
       res.json(dbTagData);
     } else {
       res.status(404).json({ message: "No tag found with this id" });
       return;
     }
-    res.json(dbTagData);
   });
 });
 
@@ -86,14 +83,12 @@ router.delete("/:id", (req, res) => {
       id: req.params.id,
     },
   }).then((dbTagData) => {
-    res.json(dbTagData);
-    if (!dbTagData) {
+    if (dbTagData) {
       res.json(dbTagData);
     } else {
       res.status(404).json({ message: "No tag found with this id" });
       return;
     }
-    res.json(dbTagData);
   });
 });
 
