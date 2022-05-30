@@ -12,7 +12,7 @@ router.get("/", (req, res) => {
     include: [
       {
         model: Category,
-        attributes: ["id", "category_name"],
+        attributes: ["id", "product_name", "price", "stock", "category_id"],
       },
       {
         model: Tag,
@@ -80,7 +80,7 @@ router.post("/", (req, res) => {
   })
     .then((product) => {
       // if there's product tags, we need to create pairings to bulk create in the ProductTag model
-      if (req.body.tagIds.length) {
+      if (req.body.tagIds && req.body.tagIds.length) {
         const productTagIdArr = req.body.tagIds.map((tag_id) => {
           return {
             product_id: product.id,
@@ -144,6 +144,11 @@ router.put("/:id", (req, res) => {
 
 router.delete("/:id", (req, res) => {
   // delete one product by its `id` value
+  Product.destroy({
+    where: {
+      id: req.params.id,
+    },
+  });
 });
 
 module.exports = router;
